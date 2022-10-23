@@ -78,8 +78,8 @@ public class Main {
 				"<< --------------------------------------------------------------------- >>\n" +
 				"1. Registrar edificio \n" +
 				"2. Agregar un apartamento a un edificio \n" +
-				"3. Ver información de un carro autonomo\n" +
-				"4. Bajar a una persona del carro autonomo\n" +
+				"3. Agregar propietario\n" +
+				"4. Agregar apartamento a un propietario\n" +
 				"0. Salir del programa.\n";
 	}
 
@@ -98,7 +98,8 @@ public class Main {
 				break;
 
 			case 3:
-
+                msg = uiAddOwner();
+                System.out.println(msg);
 				break;
 
 			case 4:
@@ -190,6 +191,56 @@ public class Main {
 
         msg = realStateController.addApartmentToBuilding(buildingName, id, roomsAmount, bathAmount, checker, rent);
 
+        return msg;
+    }
+
+    public String uiAddOwner() {
+        String msg = "";
+
+        System.out.println("Ingrese el nombre del edificio: ");
+        String buildingName = reader.next();
+
+        System.out.println("Ingrese el id del propietario: ");
+        String id = reader.next();
+
+        System.out.println("Ingrese el tipo de id del propietario: ");
+        String typeId = reader.next();
+
+        System.out.println("Ingrese el nombre del propietario: ");
+        String name = reader.next();
+        
+        System.out.println("Ingrese el numero de contacto del propietario: ");
+        String contactNumber = reader.next();
+        
+        System.out.println("Ingrese el tipo de celular del propietario: ");
+        System.out.println("Son los siguientes: \n" +
+                                "0. Hogar\n" +
+                                "1. Oficina\n" +
+                                "2. Movil\n" +
+                                "3. Familiar\n" + 
+                                "4. Otro");
+
+        int selection = validateIntegerOption();
+
+        if (selection == -1) {
+            msg = "Por favor ingrese un numero";
+            return msg;
+        }
+
+
+        System.out.println("Ingrese el numero de cuenta del propietario: ");
+        String numAccount = reader.next();
+        
+        System.out.println("Ingrese el nombre del banco del propietario: ");
+        String bankName = reader.next();
+
+        msg = realStateController.addOwnerToBuilding(buildingName, id, typeId, name, contactNumber, selection, numAccount, bankName);
+        
+        return msg;
+    }
+
+    public String uiAddApartmentToOwner() {
+        String msg = "";
         return msg;
     }
 }
