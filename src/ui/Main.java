@@ -77,7 +77,7 @@ public class Main {
 				"<< -                                Welcome                            - >>\n" +
 				"<< --------------------------------------------------------------------- >>\n" +
 				"1. Registrar edificio \n" +
-				"2. Agregar una persona un carro autonomo\n" +
+				"2. Agregar un apartamento a un edificio \n" +
 				"3. Ver información de un carro autonomo\n" +
 				"4. Bajar a una persona del carro autonomo\n" +
 				"0. Salir del programa.\n";
