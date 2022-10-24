@@ -140,7 +140,7 @@ public class Main {
                 System.out.println(msg);
             }
             
-        } while (numApartments != -1);
+        } while (numApartments == -1);
 
         msg = realStateController.addBuilding(buildingName, address, numApartments);
 
