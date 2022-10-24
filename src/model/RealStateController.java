@@ -106,17 +106,28 @@ public class RealStateController {
         return msg;
     }
 
-    public String addApartmentToBuilding(String buildingName, String idApartment, String idOwner) {
+    public String addApartmentToOwner(String buildingName, String idApartment, String idOwner) {
         String msg = "No se ha podido agregar el apartamento al propietario";
-        int apartmentPos = -1;
-        boolean flag = false;
+        int ownerPos = -1;
 
         if (validateBuildingName(buildingName) == false) {
             msg = "No se encuentra el edificio";
             return msg;
         }
 
-        buildings.get(buildingName).searchById(idApartment);
+        if (buildings.get(buildingName).searchById(idApartment) == -1) {
+            msg = "No se encuentra el apartamento";
+            return msg;
+        }
+
+        ownerPos = buildings.get(buildingName).searchOwnerById(idOwner);
+
+        if (ownerPos == -1) {
+            msg = "No se ha encontrado el propietario";
+            return msg;
+        }
+
+        msg = buildings.get(buildingName).getUsers()[ownerPos].addApartment(idApartment);
 
         return msg;
     }

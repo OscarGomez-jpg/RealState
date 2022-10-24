@@ -10,6 +10,21 @@ public class Owner extends Tenant {
         this.bankName = bankName;
     }
 
+    @Override
+    public String addApartment(String apartmentId) {
+        String msg = "Apartamento agregado con exito";
+
+        if (getApartments().contains(apartmentId)) {
+            msg = "Este propietario ya posee este apartamento";
+            
+            return msg;
+        }
+
+        getApartments().add(apartmentId);
+
+        return msg;
+    }
+
     public String getNumAccount() {
         return numAccount;
     }

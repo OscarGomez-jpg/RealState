@@ -103,7 +103,8 @@ public class Main {
 				break;
 
 			case 4:
-
+                msg = uiAddApartmentToOwner();
+                System.out.println(msg);
 				break;
 
 			case 0:
@@ -241,6 +242,18 @@ public class Main {
 
     public String uiAddApartmentToOwner() {
         String msg = "";
+
+        System.out.println("Ingrese el nombre del edificio: ");
+        String buildingName = reader.next();
+
+        System.out.println("Ingrese el id del apartamento: ");
+        String idApartment = reader.next();
+
+        System.out.println("Ingrese el id del propietario: ");
+        String idOwner = reader.next();
+
+        msg = realStateController.addApartmentToOwner(buildingName, idApartment, idOwner);
+
         return msg;
     }
 }

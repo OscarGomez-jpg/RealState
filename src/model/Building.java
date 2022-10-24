@@ -81,12 +81,12 @@ public class Building {
      * @param userId the user id given by the user
      * @return the position of the user
      */
-    public int searchByid(String userId) {
+    public int searchOwnerById(String ownerId) {
         int pos = -1;
         boolean isFound = false;
 
         for (int i = 0; i < users.length && isFound == false; i++) {
-            if (users[i] != null && users[i].getId().equals(userId)) {
+            if (users[i] != null && users[i].getId().equals(ownerId)) {
                 pos = i;
                 isFound = true;
             }
@@ -118,5 +118,10 @@ public class Building {
     public void setNumApartments(int numApartments) {
         this.numApartments = numApartments;
     }
+
+    public Tenant[] getUsers() {
+        return users;
+    }
+    
     
 }
