@@ -42,7 +42,7 @@ public class Building {
      * @param owner Owner of type tenant
      * @return A String validating the operation
      */
-    public String addOwner(Tenant owner) {
+    public String addUser(Tenant owner) {
         String msg = "El edficio esta lleno";
         boolean isEmpty = false;
 
@@ -50,7 +50,7 @@ public class Building {
             if (users[i] == null) {
                 users[i] = owner;
                 isEmpty = true;
-                msg = "Propietario agregado con exito";
+                msg = "Usuario agregado con exito";
             }
         }
 
@@ -77,7 +77,7 @@ public class Building {
     }
 
     /**
-     * This function searches a user by his id
+     * This function searches an ownerby his id
      * @param userId the user id given by the user
      * @return the position of the user
      */

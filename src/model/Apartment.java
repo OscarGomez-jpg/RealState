@@ -5,6 +5,8 @@ public class Apartment {
     private int roomsAmount;
     private int bathAmount;
     private boolean hasBalcony;
+    private boolean hasOwner;
+    private boolean hasTenant;
     private double rent;
     
     public Apartment(String id, int roomsAmount, int bathAmount, boolean hasBalcony, double rent) {
@@ -13,6 +15,8 @@ public class Apartment {
         this.bathAmount = bathAmount;
         this.hasBalcony = hasBalcony;
         this.rent = rent;
+        this.hasTenant = false;
+        this.hasOwner = false;
     }
 
     public String getId() {
@@ -50,5 +54,20 @@ public class Apartment {
     public void setRent(double rent) {
         this.rent = rent;
     }
-    
+
+    public boolean hasOwner() {
+        return hasOwner;
+    }
+
+    public boolean hasTenant() {
+        return hasTenant;
+    }
+
+    public void setHasOwner(boolean hasOwner) {
+        this.hasOwner = hasOwner;
+    }
+
+    public void setHasTenant(boolean hasTenant) {
+        this.hasTenant = hasTenant;
+    }
 }

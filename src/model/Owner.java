@@ -39,5 +39,5 @@ public class Owner extends Tenant {
 
     public void setBankName(String bankName) {
         this.bankName = bankName;
-    }
+    }    
 }

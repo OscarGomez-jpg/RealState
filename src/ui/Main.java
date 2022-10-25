@@ -80,6 +80,7 @@ public class Main {
 				"2. Agregar un apartamento a un edificio \n" +
 				"3. Agregar propietario\n" +
 				"4. Agregar apartamento a un propietario\n" +
+                "5. Agregar arrendatario\n" +
 				"0. Salir del programa.\n";
 	}
 
@@ -106,6 +107,10 @@ public class Main {
                 msg = uiAddApartmentToOwner();
                 System.out.println(msg);
 				break;
+
+            case 5:
+                msg = uiAddTenant();
+                System.out.println(msg);
 
 			case 0:
 				System.out.println("Exit program.");
@@ -253,6 +258,12 @@ public class Main {
         String idOwner = reader.next();
 
         msg = realStateController.addApartmentToOwner(buildingName, idApartment, idOwner);
+
+        return msg;
+    }
+
+    public String uiAddTenant() {
+        String msg = "";
 
         return msg;
     }

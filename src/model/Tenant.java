@@ -20,6 +20,11 @@ public class Tenant {
         this.apartments = new ArrayList<String>();
     }
 
+    /**
+     * 
+     * @param apartmentId
+     * @return
+     */
     public String addApartment(String apartmentId) {
         String msg = "Apartamento agregado con exito";
 

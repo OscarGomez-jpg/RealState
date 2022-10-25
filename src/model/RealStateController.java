@@ -12,6 +12,7 @@ public class RealStateController {
 
     /**
      * This function let you validate if a building is registered in the system
+     * 
      * @param buildingName building name
      * @return true if the building exists
      */
@@ -27,8 +28,9 @@ public class RealStateController {
 
     /**
      * This function adds a building in the system
-     * @param name building's name
-     * @param address building's address
+     * 
+     * @param name          building's name
+     * @param address       building's address
      * @param numApartments the building's number of apartments
      * @return A String validating the operation
      */
@@ -48,12 +50,13 @@ public class RealStateController {
 
     /**
      * This function adds an apartment to a building
+     * 
      * @param buildingName building's name
-     * @param id apartment's id
-     * @param roomsAmount apartment's room amount
-     * @param bathAmount apartment's bath amount
-     * @param hasBalcony if the apartment has a balcony
-     * @param rent apartment's rent
+     * @param id           apartment's id
+     * @param roomsAmount  apartment's room amount
+     * @param bathAmount   apartment's bath amount
+     * @param hasBalcony   if the apartment has a balcony
+     * @param rent         apartment's rent
      * @return A String validating the operation
      */
     public String addApartmentToBuilding(String buildingName, String id, int roomsAmount, int bathAmount,
@@ -80,32 +83,41 @@ public class RealStateController {
 
     /**
      * This function adds an Owner of type Tenant to a building
-     * @param buildingName Building's name
-     * @param id owner's id
-     * @param typeId owner's type id
-     * @param name owner's name
+     * 
+     * @param buildingName  Building's name
+     * @param id            owner's id
+     * @param typeId        owner's type id
+     * @param name          owner's name
      * @param contactNumber owner's contact number
-     * @param phoneType owner's phone type of PhonType
-     * @param numAccount owner's bank account number
-     * @param bankName owner's bank name
+     * @param phoneType     owner's phone type of PhonType
+     * @param numAccount    owner's bank account number
+     * @param bankName      owner's bank name
      * @return String validating the operation
      */
     public String addOwnerToBuilding(String buildingName, String id, String typeId, String name, String contactNumber,
             int phoneType, String numAccount, String bankName) {
         String msg = "No se ha podido agregar el propietario";
-        
+
         if (validateBuildingName(buildingName) == false) {
             msg = "No se ha encontrado el edificio";
             return msg;
         }
-        
+
         Tenant newOner = new Owner(id, typeId, name, contactNumber, phoneType, numAccount, bankName);
 
-        msg = buildings.get(buildingName).addOwner(newOner);
+        msg = buildings.get(buildingName).addUser(newOner);
 
         return msg;
     }
 
+    /**
+     * This function adds an existing apartment id to an existing owner
+     * 
+     * @param buildingName The buiding's name
+     * @param idApartment  The apartment's id
+     * @param idOwner      The owner's id
+     * @return A String validating the operation
+     */
     public String addApartmentToOwner(String buildingName, String idApartment, String idOwner) {
         String msg = "No se ha podido agregar el apartamento al propietario";
         int ownerPos = -1;
@@ -128,6 +140,22 @@ public class RealStateController {
         }
 
         msg = buildings.get(buildingName).getUsers()[ownerPos].addApartment(idApartment);
+
+        return msg;
+    }
+
+    public String addTenantToBuilding(String buildingName, String id, String typeId, String name, String contactNumber,
+            int phoneType) {
+        String msg = "No se ha podido agregar";
+
+        if (validateBuildingName(buildingName) == false) {
+            msg = "No se ha encontrado el edificio";
+            return msg;
+        }
+
+        Tenant newTenant = new Tenant(id, typeId, name, contactNumber, phoneType);
+
+        msg = buildings.get(buildingName).addUser(newTenant);
 
         return msg;
     }
