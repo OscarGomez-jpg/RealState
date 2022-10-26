@@ -298,7 +298,14 @@ public class RealStateController {
         return msg;
     }
 
-    public String getOwnerApartments(String buildingName, String ownerId) {
+    /**
+     * This function shows how many apartments owns an owner
+     * 
+     * @param buildingName building's name
+     * @param ownerId      owner's id
+     * @return A String validating the operation
+     */
+    public String getOwnerTotalApartments(String buildingName, String ownerId) {
         String msg = "";
 
         if (buildings.containsKey(buildingName) == false) {
@@ -315,6 +322,35 @@ public class RealStateController {
 
         msg = "La cantidad de apartamentos del propietario son: "
                 + buildings.get(buildingName).getUsers()[ownerPos].getApartments().size();
+
+        return msg;
+    }
+
+    public String getOwnerPayment(String buildingName, String ownerId) {
+        String msg = "";
+        double total = 0;
+
+        if (buildings.containsKey(buildingName) == false) {
+            msg = "No se ha encontrado el edificio";
+            return msg;
+        }
+
+        int ownerPos = buildings.get(buildingName).searchUserById(ownerId);
+
+        if (ownerPos == -1) {
+            msg = "No se ha encontrado el propietario";
+            return msg;
+        }
+
+        Building building = buildings.get(buildingName);
+
+        for (String rent : building.getUsers()[ownerPos].getApartments()) {
+            int apartmentPos = building.searchById(rent);
+            total += building.getApartments()[apartmentPos].getRent();
+        }
+
+        msg = "La cantidad de renta de los apartamentos del propietario en total es " + total + "\n" +
+                " El pago correspondiente es de: " + (total * 0.9);
 
         return msg;
     }

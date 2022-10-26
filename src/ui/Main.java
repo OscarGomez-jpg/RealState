@@ -85,7 +85,8 @@ public class Main {
                 "7. Mostrar los apartamentos vacios\n" +
                 "8. Obtener la renta total de un edificio\n" +
                 "9. Mostrar si un apartamento esta vacio\n" +
-                "10. Mostrar la cantidad de apartamentos de un propietario\n" +
+                "10.Mostrar la cantidad de apartamentos de un propietario\n" +
+                "11.Mostrar el pago de un propietario\n" +
                 "0. Salir del programa.\n";
     }
 
@@ -139,6 +140,11 @@ public class Main {
 
             case 10:
                 msg = uiShowOwnerApartments();
+                System.out.println(msg);
+                break;
+
+            case 11:
+                msg = uiShowOwnerPayment();
                 System.out.println(msg);
                 break;
 
@@ -392,7 +398,21 @@ public class Main {
         System.out.println("Ingrese el id del propietario: ");
         String ownerId = reader.next();
 
-        msg = realStateController.getOwnerApartments(buildingName, ownerId);
+        msg = realStateController.getOwnerTotalApartments(buildingName, ownerId);
+
+        return msg;
+    }
+
+    public String uiShowOwnerPayment() {
+        String msg = "";
+
+        System.out.println("Ingrese el nombre del edificio: ");
+        String buildingName = reader.next();
+
+        System.out.println("Ingrese el id del propietario: ");
+        String ownerId = reader.next();
+
+        msg = realStateController.getOwnerPayment(buildingName, ownerId);
 
         return msg;
     }
