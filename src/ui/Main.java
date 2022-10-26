@@ -81,8 +81,10 @@ public class Main {
                 "3. Agregar propietario\n" +
                 "4. Agregar apartamento a un propietario\n" +
                 "5. Agregar arrendatario\n" +
-                "6. Agregar apartamento a un propietario\n" +
+                "6. Agregar apartamento a un arrendatario\n" +
                 "7. Mostrar los apartamentos vacios\n" +
+                "8. Obtener la renta total de un edificio\n" +
+                "9. Mostrar si un apartamento esta vacio\n" +
                 "0. Salir del programa.\n";
     }
 
@@ -121,6 +123,16 @@ public class Main {
 
             case 7:
                 msg = uiShowEmptyApartments();
+                System.out.println(msg);
+                break;
+
+            case 8:
+                msg = uiGetFullRentPayment();
+                System.out.println(msg);
+                break;
+
+            case 9:
+                msg = uiShowSingleEmptyApartment();
                 System.out.println(msg);
                 break;
 
@@ -336,6 +348,31 @@ public class Main {
         String buildingName = reader.next();
 
         msg = realStateController.showEmptyApartments(buildingName);
+
+        return msg;
+    }
+
+    public String uiGetFullRentPayment() {
+        String msg = "";
+
+        System.out.println("Ingrese el nombre del edifcio: ");
+        String buildingName = reader.next();
+
+        msg = realStateController.getFullRentPayment(buildingName);
+
+        return msg;
+    }
+
+    public String uiShowSingleEmptyApartment() {
+        String msg = "";
+
+        System.out.println("Ingrese el nombre del edificio: ");
+        String buildingName = reader.next();
+
+        System.out.println("Ingrese el numero del apartamento: ");
+        String idApartment = reader.next();
+
+        msg = realStateController.getEmptyAparment(buildingName, idApartment);
 
         return msg;
     }

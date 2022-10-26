@@ -56,9 +56,9 @@ public class RealStateController {
 
         if (buildings.get(buildingName).searchById(id) != -1) {
             msg = "El edifcio ya existe";
-            
+
             return msg;
-        } 
+        }
 
         if (hasBalcony.equalsIgnoreCase("si")) {
             checker = true;
@@ -138,14 +138,15 @@ public class RealStateController {
      */
     public String addApartmentToOwner(String buildingName, String idApartment, String idOwner) {
         String msg = "No se ha podido agregar el apartamento al propietario";
-        int apartmentPos = buildings.get(buildingName).searchById(idApartment);
-        int ownerPos = buildings.get(buildingName).searchUserById(idOwner);
-
+        
         if (buildings.containsKey(buildingName) == false) {
             msg = "No se encuentra el edificio";
             return msg;
         }
-
+        
+        int apartmentPos = buildings.get(buildingName).searchById(idApartment);
+        int ownerPos = buildings.get(buildingName).searchUserById(idOwner);
+        
         if (apartmentPos == -1) {
             msg = "No se encuentra el apartamento";
             return msg;
@@ -178,14 +179,15 @@ public class RealStateController {
      */
     public String addApartmentToTenant(String buildingName, String idApartment, String idTenant) {
         String msg = "No se ha podido agregar el apartamento al arrendatario";
-        int apartmentPos = buildings.get(buildingName).searchById(idApartment);
-        int tenantPos = buildings.get(buildingName).searchUserById(idTenant);
-
+        
         if (buildings.containsKey(buildingName) == false) {
             msg = "No se encuentra el edificio";
             return msg;
         }
-
+        
+        int apartmentPos = buildings.get(buildingName).searchById(idApartment);
+        int tenantPos = buildings.get(buildingName).searchUserById(idTenant);
+        
         if (apartmentPos == -1) {
             msg = "No se encuentra el apartamento";
             return msg;
@@ -236,4 +238,65 @@ public class RealStateController {
 
         return msg;
     }
+
+    /**
+     * This function shows the payment of the total rent from a specific building
+     * 
+     * @param buildingName The building's name given by the user
+     * @return A String with the total payment for this building
+     */
+    public String getFullRentPayment(String buildingName) {
+        String msg = "";
+        double acu = 0;
+
+        if (buildings.containsKey(buildingName) == false) {
+            msg = "No se ha encontrado el edificio";
+            return msg;
+        }
+
+        Building building = buildings.get(buildingName);
+
+        for (int i = 0; i < building.getApartments().length; i++) {
+            if (building.getApartments()[i] != null && building.getApartments()[i].getHasTenant() == true) {
+                acu += building.getApartments()[i].getRent();
+            }
+        }
+
+        msg += "Total de renta a recaudar: " + acu;
+
+        return msg;
+    }
+
+    /**
+     * This functions shows if an apartment from a building is occupied
+     * 
+     * @param buildingName The building's name
+     * @param idApartment The apartment's id
+     * @return A String validating the operation
+     */
+    public String getEmptyAparment(String buildingName, String idApartment) {
+        String msg = "";
+        
+        if (buildings.containsKey(buildingName) == false) {
+            msg = "No se ha encontrado el edificio";
+            return msg;
+        }
+
+        int apartmentPos = buildings.get(buildingName).searchById(idApartment);
+        
+        if (apartmentPos == -1) {
+            msg = "No se ha encontrado el apartamento";
+            return msg;
+        }
+
+        if (buildings.get(buildingName).getApartments()[apartmentPos].getHasTenant()) {
+            msg = "El apartamento ya esta ocupado";
+        } else {
+            msg = "El apartamento esta libre";
+        }
+
+        return msg;
+    }
+
+
 }
