@@ -54,6 +54,12 @@ public class RealStateController {
             return msg;
         }
 
+        if (buildings.get(buildingName).searchById(id) != -1) {
+            msg = "El edifcio ya existe";
+            
+            return msg;
+        } 
+
         if (hasBalcony.equalsIgnoreCase("si")) {
             checker = true;
         }
@@ -220,7 +226,7 @@ public class RealStateController {
         Building building = buildings.get(buildingName);
 
         for (int i = 0; i < building.getApartments().length; i++) {
-            if (building.getApartments()[i].getHasTenant() == false) {
+            if (building.getApartments()[i] != null && building.getApartments()[i].getHasTenant() == false) {
                 acu += 1;
                 msg += "El apartamento " + building.getApartments()[i].getId() + " esta libre\n";
             }
