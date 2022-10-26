@@ -21,9 +21,10 @@ public class Tenant {
     }
 
     /**
+     * This function adds an existing apartment id to an existing tenant
      * 
-     * @param apartmentId
-     * @return
+     * @param apartmentId The apartment's id
+     * @return A String validating the operation
      */
     public String addApartment(String apartmentId) {
         String msg = "Apartamento agregado con exito";
