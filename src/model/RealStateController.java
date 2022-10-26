@@ -82,6 +82,33 @@ public class RealStateController {
     }
 
     /**
+     * This function adds a tenant to a building given by the user
+     * 
+     * @param buildingName  Building's name
+     * @param id            Tenant's name
+     * @param typeId        Tenant's type id
+     * @param name          Tenant's name
+     * @param contactNumber Tenant's contact number
+     * @param phoneType     Tenant's phone type given as an int
+     * @return A String validating the operation
+     */
+    public String addUserToBuilding(String buildingName, String id, String typeId, String name, String contactNumber,
+            int phoneType) {
+        String msg = "No se ha podido agregar el arrendatario";
+
+        if (validateBuildingName(buildingName) == false) {
+            msg = "No se ha encontrado el edificio";
+            return msg;
+        }
+
+        Tenant newTenant = new Tenant(id, typeId, name, contactNumber, phoneType);
+
+        msg = buildings.get(buildingName).addUser(newTenant);
+
+        return msg;
+    }
+
+    /**
      * This function adds an Owner of type Tenant to a building
      * 
      * @param buildingName  Building's name
@@ -94,7 +121,8 @@ public class RealStateController {
      * @param bankName      owner's bank name
      * @return String validating the operation
      */
-    public String addOwnerToBuilding(String buildingName, String id, String typeId, String name, String contactNumber,
+    @Overload
+    public String addUserToBuilding(String buildingName, String id, String typeId, String name, String contactNumber,
             int phoneType, String numAccount, String bankName) {
         String msg = "No se ha podido agregar el propietario";
 
@@ -120,42 +148,64 @@ public class RealStateController {
      */
     public String addApartmentToOwner(String buildingName, String idApartment, String idOwner) {
         String msg = "No se ha podido agregar el apartamento al propietario";
-        int ownerPos = -1;
+        int apartmentPos = buildings.get(buildingName).searchById(idApartment);
+        int ownerPos = buildings.get(buildingName).searchUserById(idOwner);
 
         if (validateBuildingName(buildingName) == false) {
             msg = "No se encuentra el edificio";
             return msg;
         }
 
-        if (buildings.get(buildingName).searchById(idApartment) == -1) {
+        if (apartmentPos == -1) {
             msg = "No se encuentra el apartamento";
             return msg;
         }
 
-        ownerPos = buildings.get(buildingName).searchOwnerById(idOwner);
+        if (buildings.get(buildingName).getApartments()[apartmentPos].getHasOwner()) {
+            msg = "Este apartamento ya tiene un propietario";
+            return msg;
+        }
 
         if (ownerPos == -1) {
             msg = "No se ha encontrado el propietario";
             return msg;
         }
 
+        buildings.get(buildingName).getApartments()[apartmentPos].setHasOwner(true);
+
         msg = buildings.get(buildingName).getUsers()[ownerPos].addApartment(idApartment);
 
         return msg;
     }
 
-    public String addTenantToBuilding(String buildingName, String id, String typeId, String name, String contactNumber,
-            int phoneType) {
-        String msg = "No se ha podido agregar";
+    public String addApartmentToTenant(String buildingName, String idApartment, String idTenant) {
+        String msg = "No se ha podido agregar el apartamento al arrendatario";
+        int apartmentPos = buildings.get(buildingName).searchById(idApartment);
+        int tenantPos = buildings.get(buildingName).searchUserById(idTenant);
 
         if (validateBuildingName(buildingName) == false) {
-            msg = "No se ha encontrado el edificio";
+            msg = "No se encuentra el edificio";
             return msg;
         }
 
-        Tenant newTenant = new Tenant(id, typeId, name, contactNumber, phoneType);
+        if (apartmentPos == -1) {
+            msg = "No se encuentra el apartamento";
+            return msg;
+        }
 
-        msg = buildings.get(buildingName).addUser(newTenant);
+        if (buildings.get(buildingName).getApartments()[apartmentPos].getHasTenant()) {
+            msg = "Este apartamento ya tiene un arrendatario";
+            return msg;
+        }
+
+        if (tenantPos == -1) {
+            msg = "No se ha encontrado el arrendatario";
+            return msg;
+        }
+
+        buildings.get(buildingName).getApartments()[apartmentPos].setHasTenant(true);
+
+        msg = buildings.get(buildingName).getUsers()[tenantPos].addApartment(idApartment);
 
         return msg;
     }

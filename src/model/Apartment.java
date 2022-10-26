@@ -39,7 +39,7 @@ public class Apartment {
         this.bathAmount = bathAmount;
     }
 
-    public boolean hasBalcony() {
+    public boolean getHasBalcony() {
         return hasBalcony;
     }
 
@@ -55,11 +55,11 @@ public class Apartment {
         this.rent = rent;
     }
 
-    public boolean hasOwner() {
+    public boolean getHasOwner() {
         return hasOwner;
     }
 
-    public boolean hasTenant() {
+    public boolean getHasTenant() {
         return hasTenant;
     }
 

@@ -240,7 +240,7 @@ public class Main {
         System.out.println("Ingrese el nombre del banco del propietario: ");
         String bankName = reader.next();
 
-        msg = realStateController.addOwnerToBuilding(buildingName, id, typeId, name, contactNumber, selection, numAccount, bankName);
+        msg = realStateController.addUserToBuilding(buildingName, id, typeId, name, contactNumber, selection, numAccount, bankName);
         
         return msg;
     }
@@ -265,6 +265,38 @@ public class Main {
     public String uiAddTenant() {
         String msg = "";
 
+        System.out.println("Ingrese el nombre del edificio: ");
+        String buildingName = reader.next();
+
+        System.out.println("Ingrese el id del propietario: ");
+        String id = reader.next();
+
+        System.out.println("Ingrese el tipo de id del propietario: ");
+        String typeId = reader.next();
+
+        System.out.println("Ingrese el nombre del propietario: ");
+        String name = reader.next();
+        
+        System.out.println("Ingrese el numero de contacto del propietario: ");
+        String contactNumber = reader.next();
+        
+        System.out.println("Ingrese el tipo de celular del propietario: ");
+        System.out.println("Son los siguientes: \n" +
+                                "0. Hogar\n" +
+                                "1. Oficina\n" +
+                                "2. Movil\n" +
+                                "3. Familiar\n" + 
+                                "4. Otro");
+
+        int selection = validateIntegerOption();
+
+        if (selection == -1) {
+            msg = "Por favor ingrese un numero";
+            return msg;
+        }
+
+        msg = realStateController.addUserToBuilding(buildingName, id, typeId, name, contactNumber, selection);
+        
         return msg;
     }
 }
