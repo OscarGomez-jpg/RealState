@@ -326,6 +326,13 @@ public class RealStateController {
         return msg;
     }
 
+    /**
+     * This function calculates the payment for an owner by giving to him the 90% of the revenues
+     * 
+     * @param buildingName The building's name
+     * @param ownerId The owner's id
+     * @return A String with the total payment for the owner
+     */
     public String getOwnerPayment(String buildingName, String ownerId) {
         String msg = "";
         double total = 0;
